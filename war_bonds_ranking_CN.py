@@ -28,9 +28,9 @@ hide_table_row_index = """
 # Inject CSS with Markdown
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
-st.header('向日葵战争战争券排行榜')
-st.write('信息更新時間：' + today_str)
-# st.write(today)
+st.header('向日葵战争券排行榜')
+st.write('信息更新時間：' + now_str)
+st.write('注意：数据源非同步更新，建议2-3小时刷新一次。')
 
 
 scraper = cloudscraper.create_scraper(
@@ -89,6 +89,14 @@ def get_list(url, df, cursor, pages, group):
 
 df_m = get_list(m_url, df_m, cursor_m, pages_m, '人类')
 df_g = get_list(g_url, df_g, cursor_g, pages_g, '哥布林')
+
+m_tickets = df_m['战争票数量'].sum()
+g_tickets = df_g['战争票数量'].sum()
+t_tickets = m_tickets + g_tickets
+m_owners = df_m.shape[0]
+g_owners = df_g.shape[0]
+
+st.write(f'到目前为止，人类共有{m_owners}个贡献者。哥布林有{g_owners}个。人类贡献了{m_tickets}票。哥布林{g_tickets}票。总票数是{t_tickets}。')
 
 st.title('人类部落战争券排行榜')
 st.table(df_m.head(50))

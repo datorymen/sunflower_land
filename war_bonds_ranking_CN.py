@@ -96,7 +96,7 @@ t_tickets = m_tickets + g_tickets
 m_owners = df_m.shape[0]
 g_owners = df_g.shape[0]
 
-st.write(f'到目前为止，人类共有{m_owners}个贡献者。哥布林有{g_owners}个。人类贡献了{m_tickets}票。哥布林{g_tickets}票。总票数是{t_tickets}。')
+st.write(f'到目前为止，人类共有{m_owners}个贡献者，而哥布林有{g_owners}个。人类贡献了{m_tickets}票，哥布林{g_tickets}票。总票数是{t_tickets}。')
 
 st.title('人类部落战争券排行榜')
 st.table(df_m.head(100))

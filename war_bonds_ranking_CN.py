@@ -62,7 +62,7 @@ def get_owners(url):
         owner.append(result['owner_of'])
         tickets.append(result['amount'])
 
-    df = pd.DataFrame(zip(owner, tickets), columns=['所有者地址', '战争票数量'])
+    df = pd.DataFrame(zip(owner, tickets), columns=['所有者地址', '战争券数量'])
     cursor = output['cursor']
     pages = output['total']//100+1
     return df, cursor, pages
@@ -78,25 +78,35 @@ def get_list(url, df, cursor, pages, group):
         df_next, cursor, pages = get_owners(new_url)
         df = df.append(df_next)
 
-        df['战争票数量'] = df['战争票数量'].astype('int')
-        df = df.sort_values(['战争票数量'], ascending=False)
+        df['战争券数量'] = df['战争券数量'].astype('int')
+        df = df.sort_values(['战争券数量'], ascending=False)
         df = df.reset_index(drop=True)
         col_name = group + '排名'
         df[col_name] = df.index + 1
-        df = df[[col_name, '战争票数量', '所有者地址' ]]
+        df['队伍'] = group
+        df = df[[col_name, '战争券数量', '所有者地址', '队伍']]
     return df
 
 
 df_m = get_list(m_url, df_m, cursor_m, pages_m, '人类')
 df_g = get_list(g_url, df_g, cursor_g, pages_g, '哥布林')
 
-m_tickets = df_m['战争票数量'].sum()
-g_tickets = df_g['战争票数量'].sum()
+df_overall = df_m[['战争券数量', '所有者地址', '队伍']].append(df_g[['战争券数量', '所有者地址', '队伍']])
+df_overall = df_overall.sort_values('战争券数量', ascending=False)
+df_overall = df_overall.reset_index(drop=True)
+df_overall['排名'] = df_overall.index + 1
+df_overall = df_overall[['排名','队伍', '战争券数量', '所有者地址']]
+
+m_tickets = df_m['战争券数量'].sum()
+g_tickets = df_g['战争券数量'].sum()
 t_tickets = m_tickets + g_tickets
 m_owners = df_m.shape[0]
 g_owners = df_g.shape[0]
 
-st.write(f'到目前为止，人类共有{m_owners}个贡献者，而哥布林有{g_owners}个。人类贡献了{m_tickets}票，哥布林{g_tickets}票。总票数是{t_tickets}。')
+st.write(f'到目前为止，人类共有{m_owners}个贡献者，而哥布林有{g_owners}个。人类贡献了{m_tickets}券，哥布林{g_tickets}券。总券数是{t_tickets}。')
+
+st.title('两个战队战争券综合排行榜')
+st.table(df_overall.head(100))
 
 st.title('人类部落战争券排行榜')
 st.table(df_m.head(100))

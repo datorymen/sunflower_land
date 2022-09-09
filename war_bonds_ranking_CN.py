@@ -32,6 +32,11 @@ st.header('向日葵战争券排行榜')
 st.write('更新時間：' + now_str)
 st.write('注意：数据源非同步更新，建议2-3小时刷新一次。')
 
+st.caption('''
+如果发现问题或者有什么建议，请给我信息: \n
+Discord: datory.men#9568 \n
+''')
+
 
 scraper = cloudscraper.create_scraper(
     browser={
@@ -115,10 +120,6 @@ st.table(df_m.head(100))
 st.title('哥布林部落战争券排行榜')
 st.table(df_g.head(100))
 
-st.caption('''
-如果发现问题或者有什么建议，请给我信息: \n
-Discord: datory.men#9568 \n
-\n
-''')
+
 
 

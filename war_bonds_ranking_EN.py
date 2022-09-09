@@ -32,6 +32,10 @@ st.header('Sunflower Land War Bonds Ranking')
 st.write('Updated：' + now_str)
 st.write('Note：This free data source is not updated immediately. Suggest to refresh every 2-3 hours.')
 
+st.caption('''
+Any feedback or suggestion，please message me: \n
+Discord: datory.men#9568 \n
+''')
 
 scraper = cloudscraper.create_scraper(
     browser={
@@ -117,10 +121,6 @@ st.table(df_m.head(100))
 st.title('Goblin War Bonds Ranking')
 st.table(df_g.head(100))
 
-st.caption('''
-Any feedback or suggestion，please message me: \n
-Discord: datory.men#9568 \n
-\n
-''')
+
 
 

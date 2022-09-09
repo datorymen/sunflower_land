@@ -83,7 +83,7 @@ def get_list(url, df, cursor, pages, group):
         df = df.reset_index(drop=True)
         col_name = group + '排名'
         df[col_name] = df.index + 1
-        df = df[[col_name, '所有者地址', '战争票数量']]
+        df = df[[col_name, '战争票数量', '所有者地址' ]]
     return df
 
 

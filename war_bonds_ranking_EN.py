@@ -81,7 +81,7 @@ def get_list(url, df, cursor, pages, group):
         df['Bonds'] = df['Bonds'].astype('int')
         df = df.sort_values(['Bonds'], ascending=False)
         df = df.reset_index(drop=True)
-        col_name = group + 'Ranking'
+        col_name = group + ' Ranking'
         df[col_name] = df.index + 1
         df = df[[col_name, 'Bonds', 'Owner' ]]
     return df

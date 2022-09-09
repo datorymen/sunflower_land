@@ -29,7 +29,7 @@ hide_table_row_index = """
 st.markdown(hide_table_row_index, unsafe_allow_html=True)
 
 st.header('向日葵战争券排行榜')
-st.write('信息更新時間：' + now_str)
+st.write('更新時間：' + now_str)
 st.write('注意：数据源非同步更新，建议2-3小时刷新一次。')
 
 

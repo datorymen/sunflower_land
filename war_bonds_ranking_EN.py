@@ -96,7 +96,7 @@ t_tickets = m_tickets + g_tickets
 m_owners = df_m.shape[0]
 g_owners = df_g.shape[0]
 
-st.write(f'Up to now，There are {m_owners} Bumpkin contributors and {g_owners} Goblin contributors.Bumpkin team has {m_tickets} bonds.Goblin team has {g_tickets} bonds.Total bonds quantity is {t_tickets}.')
+st.write(f'Up to now，there are {m_owners} Bumpkin contributors and {g_owners} Goblin contributors. Bumpkin team has {m_tickets} bonds. Goblin team has {g_tickets} bonds. Total bond quantity is {t_tickets}.')
 
 st.title('Bumpkin War Bonds Ranking')
 st.table(df_m.head(100))

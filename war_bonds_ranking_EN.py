@@ -62,7 +62,7 @@ def get_owners(url):
         owner.append(result['owner_of'])
         tickets.append(result['amount'])
 
-    df = pd.DataFrame(zip(owner, tickets), columns=['所有者地址', '战争票数量'])
+    df = pd.DataFrame(zip(owner, tickets), columns=['Owner', 'Bonds'])
     cursor = output['cursor']
     pages = output['total']//100+1
     return df, cursor, pages
@@ -83,7 +83,7 @@ def get_list(url, df, cursor, pages, group):
         df = df.reset_index(drop=True)
         col_name = group + 'Ranking'
         df[col_name] = df.index + 1
-        df = df[[col_name, 'Bonds', 'Ower' ]]
+        df = df[[col_name, 'Bonds', 'Owner' ]]
     return df
 
 

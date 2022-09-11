@@ -66,7 +66,7 @@ def get_owners(url):
         owner.append(result['owner_of'])
         tickets.append(result['amount'])
 
-    df = pd.DataFrame(zip(owner, tickets), columns=['Owner', 'Bonds'])
+    df = pd.DataFrame(zip(owner, tickets), columns=['Farm Address', 'Bonds'])
     cursor = output['cursor']
     pages = output['total']//100+1
     return df, cursor, pages
@@ -88,7 +88,7 @@ def get_list(url, df, cursor, pages, group):
         col_name = group + ' Ranking'
         df[col_name] = df.index + 1
         df['Group'] = group
-        df = df[[col_name, 'Bonds', 'Owner', 'Group']]
+        df = df[[col_name, 'Bonds', 'Farm Address', 'Group']]
     return df
 
 
@@ -101,11 +101,11 @@ t_tickets = m_tickets + g_tickets
 m_owners = df_m.shape[0]
 g_owners = df_g.shape[0]
 
-df_overall = df_m[['Bonds', 'Owner', 'Group']].append(df_g[['Bonds', 'Owner', 'Group']])
+df_overall = df_m[['Bonds', 'Farm Address', 'Group']].append(df_g[['Bonds', 'Farm Address', 'Group']])
 df_overall = df_overall.sort_values('Bonds', ascending=False)
 df_overall = df_overall.reset_index(drop=True)
 df_overall['Ranking'] = df_overall.index + 1
-df_overall = df_overall[['Ranking','Group', 'Bonds', 'Owner']]
+df_overall = df_overall[['Ranking','Group', 'Bonds', 'Farm Address']]
 
 
 st.write(f'Up to now，there are {m_owners} Bumpkin contributors and {g_owners} Goblin contributors. Bumpkin team has {m_tickets} bonds. Goblin team has {g_tickets} bonds. Total bond quantity is {t_tickets}.')

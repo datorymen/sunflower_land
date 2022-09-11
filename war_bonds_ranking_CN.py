@@ -67,7 +67,7 @@ def get_owners(url):
         owner.append(result['owner_of'])
         tickets.append(result['amount'])
 
-    df = pd.DataFrame(zip(owner, tickets), columns=['所有者地址', '战争券数量'])
+    df = pd.DataFrame(zip(owner, tickets), columns=['农场地址', '战争券数量'])
     cursor = output['cursor']
     pages = output['total']//100+1
     return df, cursor, pages
@@ -89,18 +89,18 @@ def get_list(url, df, cursor, pages, group):
         col_name = group + '排名'
         df[col_name] = df.index + 1
         df['队伍'] = group
-        df = df[[col_name, '战争券数量', '所有者地址', '队伍']]
+        df = df[[col_name, '战争券数量', '农场地址', '队伍']]
     return df
 
 
 df_m = get_list(m_url, df_m, cursor_m, pages_m, '人类')
 df_g = get_list(g_url, df_g, cursor_g, pages_g, '哥布林')
 
-df_overall = df_m[['战争券数量', '所有者地址', '队伍']].append(df_g[['战争券数量', '所有者地址', '队伍']])
+df_overall = df_m[['战争券数量', '农场地址', '队伍']].append(df_g[['战争券数量', '农场地址', '队伍']])
 df_overall = df_overall.sort_values('战争券数量', ascending=False)
 df_overall = df_overall.reset_index(drop=True)
 df_overall['排名'] = df_overall.index + 1
-df_overall = df_overall[['排名','队伍', '战争券数量', '所有者地址']]
+df_overall = df_overall[['排名','队伍', '战争券数量', '农场地址']]
 
 m_tickets = df_m['战争券数量'].sum()
 g_tickets = df_g['战争券数量'].sum()

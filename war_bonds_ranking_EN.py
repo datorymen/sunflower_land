@@ -92,7 +92,7 @@ def get_list(url, df, cursor, pages, group):
     return df
 
 
-df_m = get_list(m_url, df_m, cursor_m, pages_m, 'Bumpkin')
+df_m = get_list(m_url, df_m, cursor_m, pages_m, 'Human')
 df_g = get_list(g_url, df_g, cursor_g, pages_g, 'Goblin')
 
 m_tickets = df_m['Bonds'].sum()
@@ -108,17 +108,17 @@ df_overall['Ranking'] = df_overall.index + 1
 df_overall = df_overall[['Ranking','Group', 'Bonds', 'Farm Address']]
 
 
-st.write(f'Up to now，there are {m_owners} Bumpkin contributors and {g_owners} Goblin contributors. Bumpkin team has {m_tickets} bonds. Goblin team has {g_tickets} bonds. Total bond quantity is {t_tickets}.')
+st.write(f'Up to now，there are {m_owners} Human contributors and {g_owners} Goblin contributors. Human team has {m_tickets} bonds. Goblin team has {g_tickets} bonds. Total bond quantity is {t_tickets}.')
 
 
 st.title('Overall War Bonds Ranking')
 st.table(df_overall.head(100))
 
-st.title('Bumpkin War Bonds Ranking')
+st.title('Human Team War Bonds Ranking')
 st.table(df_m.head(100))
 
 
-st.title('Goblin War Bonds Ranking')
+st.title('Goblin Team War Bonds Ranking')
 st.table(df_g.head(100))
 
 

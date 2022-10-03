@@ -59,17 +59,20 @@ g_url = "https://deep-index.moralis.io/api/v2/nft/0x22d5f9b75c524fec1d6619787e58
 def get_owners(url):
     res = scraper.get(url, headers=headers)
     output= json.loads(res.text)
-    results = output['result']
-    owner = []
-    tickets = []
-    df = pd.DataFrame()
-    for result in results:
-        owner.append(result['owner_of'])
-        tickets.append(result['amount'])
+    if 'result' in output.keys():
+        results = output['result']
+        owner = []
+        tickets = []
+        df = pd.DataFrame()
+        for result in results:
+            owner.append(result['owner_of'])
+            tickets.append(result['amount'])
 
-    df = pd.DataFrame(zip(owner, tickets), columns=['农场地址', '战争券数量'])
-    cursor = output['cursor']
-    pages = output['total']//100+1
+        df = pd.DataFrame(zip(owner, tickets), columns=['农场地址', '战争券数量'])
+        cursor = output['cursor']
+        pages = output['total']//100+1
+    else:
+        pass
     return df, cursor, pages
 
 df_m, cursor_m, pages_m = get_owners(m_url)

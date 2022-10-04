@@ -32,7 +32,7 @@ st.header('Sunflower Land War Bonds Ranking')
 st.write('Updated：' + now_str)
 st.write('Note：This free data source is not updated immediately. Suggest to refresh every 2-3 hours.')
 
-st.header('''
+st.subheader('''
 Donation is welcome to keep the app running. Thank you! \n
 0x7E71DdaDF7b1D998eECEE8D99817375B84110C13 \n
 ''')
